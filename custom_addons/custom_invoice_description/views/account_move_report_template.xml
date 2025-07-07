@@ -1,0 +1,14 @@
+<odoo>
+    <template id="custom_invoice_line_description" inherit_id="account.report_invoice_document">
+        <xpath expr="//tbody[@class='invoice_tbody']//td[1]" position="replace">
+            <td>
+                <t t-set="cleaned_name" t-value="line.get_clean_name()"/>
+                <t t-foreach="cleaned_name.split('\n')" t-as="desc_line">
+                    <div style="font-style: italic;">
+                        <t t-esc="desc_line"/>
+                    </div>
+                </t>
+            </td>
+        </xpath>
+    </template>
+</odoo>

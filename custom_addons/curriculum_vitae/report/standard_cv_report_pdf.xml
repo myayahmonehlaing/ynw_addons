@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paper_format_standard_cv" model="report.paperformat">
+            <field name="name">Paper format for the Standard CV</field>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+        </record>
+
+        <record id="standard_cv_report_pdf" model="ir.actions.report">
+            <field name="name">Standard CV - PDF</field>
+            <field name="model">standard.cv</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">curriculum_vitae.standard_cv_report_template</field>
+            <field name="report_file">curriculum_vitae.standard_cv_report_template</field>
+            <field name="print_report_name">'Standard CV - %s' % (object.name)</field>
+            <field name="paperformat_id" ref="paper_format_standard_cv"/>
+        </record>
+    </data>
+</odoo>

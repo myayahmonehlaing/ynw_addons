@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- List (Tree) View -->
+    <record id="view_sale_order_type_tree" model="ir.ui.view">
+        <field name="name">sale.order.type.tree</field>
+        <field name="model">sale.order.type</field>
+        <field name="type">list</field> <!-- ✅ Use list instead of tree -->
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="sequence_id"/>
+                <field name="warehouse_id"/>
+                <field name="journal_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_sale_order_type_form" model="ir.ui.view">
+        <field name="name">sale.order.type.form</field>
+        <field name="model">sale.order.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="sequence_id"/>
+                        <field name="warehouse_id"/>
+                        <field name="journal_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_sale_order_type" model="ir.actions.act_window">
+        <field name="name">Order Types</field>
+        <field name="res_model">sale.order.type</field>
+        <field name="view_mode">list,form</field> <!-- ✅ Use list instead of tree -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create and manage order types.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_order_type_root"
+              name="Order Types"
+              parent="sale.menu_sales_config"
+              sequence="20"
+              action="action_sale_order_type"/>
+</odoo>

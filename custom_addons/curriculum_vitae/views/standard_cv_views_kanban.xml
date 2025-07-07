@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="standard_cv_view_kanban" model="ir.ui.view">
+            <field name="name">standard.cv.kanban</field>
+            <field name="model">standard.cv</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="apply_job"/>
+                    <field name="email"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('standard.cv', 'image', record.id.raw_value)"
+                                         t-att-alt="record.name.value"
+                                         t-att-title="record.name.value"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong><field name="name"/></strong><br/>
+                                    <field name="apply_job"/><br/>
+                                    <field name="email" widget="email"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</odoo>

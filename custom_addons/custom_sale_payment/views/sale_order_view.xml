@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_form_view_inherit_payment_first" model="ir.ui.view">
+        <field name="name">sale.order.form.view.inherit.payment.first</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <button name="action_pay_order" type="object" string="Pay" class="oe_highlight"
+                        invisible="state != 'sale'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+    <record id="mail_template_birthday" model="mail.template">
+      <field name="name">Birthday Wish Email</field>
+      <field name="model_id" ref="hr.model_hr_employee"/>
+      <field name="subject">Happy Birthday, ${object.name}!</field>
+      <field name="email_from">${(user.email or 'hr@yourcompany.com')}</field>
+      <field name="email_to">${object.work_email}</field>
+      <field name="body_html"><![CDATA[
+        <p>Dear ${object.name},</p>
+        <p>Wishing you a very Happy Birthday! \U0001F382\U0001F389</p>
+        <p>Best regards,<br/>Your Team</p>
+      ]]></field>
+    </record>
+  </data>
+</odoo>

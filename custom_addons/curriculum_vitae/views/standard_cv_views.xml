@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_standard_cv" model="ir.actions.act_window">
+            <field name="name">Standard CV</field>
+            <field name="res_model">standard.cv</field>
+            <field name="view_mode">kanban,calendar,list,form</field>
+            <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create a new CV form!
+            </p>
+            </field>
+        </record>
+        <record id="standard_cv_view_list" model="ir.ui.view">
+            <field name="name">standard.cv.list</field>
+            <field name="model">standard.cv</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="image" widget="image" options="{'size': [50, 50]}"/>
+                    <field name="name"/>
+                    <field name="apply_job"/>
+                    <field name="dob"/>
+                </list>
+            </field>
+        </record>
+        <menuitem id="root_menu_cv_form"
+                  name="CV From"
+                  web_icon="curriculum_vitae,static/description/icon.png"/>
+        <menuitem id="first_level_menu_curriculum_vitae"
+                  name="Curriculum Vitae"
+                  parent="root_menu_cv_form"/>
+        <menuitem id="action_menu_standard_cv"
+                  name="Standard CV"
+                  parent="first_level_menu_curriculum_vitae"
+                  action="action_standard_cv"/>
+
+
+    </data>
+</odoo>

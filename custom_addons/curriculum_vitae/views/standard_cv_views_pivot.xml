@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="standard_cv_view_pivot" model="ir.ui.view">
+            <field name="name">standard.cv.pivot</field>
+            <field name="model">standard.cv</field>
+            <field name="arch" type="xml">
+                <pivot display_quantity="1"
+                       disable_linking="0"
+                       string="Standard CV">
+                    <field name="gender" string="Gender" type="row"/>
+                    <field name="name" string="Career Name" type="row"/>
+                    <field name="apply_job" string="Apply Job" type="col"/>
+                    <field name="salary" string="Expect Salary" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+    </data>
+</odoo>

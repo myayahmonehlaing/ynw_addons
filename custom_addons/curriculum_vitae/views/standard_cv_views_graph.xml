@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="standard_cv_view_graph" model="ir.ui.view">
+            <field name="name">standard.cv.graph</field>
+            <field name="model">standard.cv</field>
+            <field name="arch" type="xml">
+                <graph type="bar"
+                       stacked="0"
+                       order="asc"
+                       disable_linking="0"
+                       string="Standard CV">
+
+                    <field name="apply_job"/>
+                    <field name="name"/>
+                    <field name="dob" interval="year" invisible="1"/>
+                    <field name="salary" type="measure" string="Expect Salary"/>
+                </graph>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_payment_wizard_form" model="ir.ui.view">
+        <field name="name">payment.wizard.form</field>
+        <field name="model">payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Payment">
+                <sheet>
+                    <group>
+                        <div class="oe_title" style="font-size:18px; font-weight:bold;">
+                            Pay
+                        </div>
+                    </group>
+                    <group>
+                        <field name="journal_id" string="Journal"/>
+                        <field name="payment_method" string="Payment Method"/>
+                        <field name="recipient_bank_account" string="Recipient Bank Account"/>
+                        <field name="payment_amount" string="Amount"/>
+                        <field name="currency_id" string="Currency"/>
+                        <field name="payment_date" string="Payment Date"/>
+                        <field name="memo" string="Memo"/>
+                        <field name="sequence_number" string="Sequence Number"/>
+                    </group>
+                    <footer>
+                        <button name="action_confirm_payment"
+                                string="Pay Now"
+                                type="object"
+                                class="oe_highlight"
+                                style="background-color:#27ae60; color:white;"/>
+                        <button string="Cancel"
+                                class="oe_link"
+                                special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

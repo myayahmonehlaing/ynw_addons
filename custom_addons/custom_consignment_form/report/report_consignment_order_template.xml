@@ -1,0 +1,101 @@
+<odoo>
+    <template id="report_consignment_order_template">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="doc">
+                <main class="page">
+
+                    <div style="text-align: right; margin-bottom: 10px;">
+                        <strong>Customer:</strong>
+                        <span t-field="doc.partner_id.name"/>
+                        <br/>
+                        <strong>Address:</strong>
+                        <span t-field="doc.partner_id.contact_address"/>
+                    </div>
+
+                    <h2 style="text-align: center; margin-bottom: 20px;">Consignment Order</h2>
+
+                    <h4>Order Info</h4>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 30%; padding: 4px;">Reference</td>
+                                <td style="padding: 4px;">
+                                    <span t-field="doc.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px;">Pricelist</td>
+                                <td style="padding: 4px;">
+                                    <span t-field="doc.pricelist_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px;">Date</td>
+                                <td style="padding: 4px;">
+                                    <span t-field="doc.date_order"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px;">Operation Type</td>
+                                <td style="padding: 4px;">
+                                    <t t-esc="doc.picking_type_id.warehouse_id.name"/>:
+                                    <t t-esc="doc.picking_type_id.name"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding: 4px;">Total</td>
+                                <td style="padding: 4px;">
+                                    <span t-field="doc.amount_total"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 style="margin-top: 30px;">Order Lines</h4>
+                    <table style="width: 100%; border-collapse: collapse;" border="1">
+                        <thead>
+                            <tr>
+                                <th style="padding: 6px;">Product</th>
+                                <th style="padding: 6px; text-align: right;">Quantity</th>
+                                <th style="padding: 6px; text-align: right;">Sold Qty</th>
+                                <th style="padding: 6px; text-align: right;">Remain Qty</th>
+                                <th style="padding: 6px;">Unit Price</th>
+                                <th style="padding: 6px;">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="doc.order_line_ids" t-as="line">
+                                <td style="padding: 4px;">
+                                    <span t-field="line.product_id.display_name"/>
+                                </td>
+                                <td style="padding: 4px; text-align: right;">
+                                    <span t-field="line.product_uom_qty"/>
+                                </td>
+                                <td style="padding: 4px; text-align: right;">
+                                    <span t-field="line.sold_qty"/>
+                                </td>
+                                <td style="padding: 4px; text-align: right;">
+                                    <span t-field="line.remaining_qty"/>
+                                </td>
+                                <td style="padding: 4px; text-align: right;">
+                                    <span t-field="line.price_unit"/>
+                                </td>
+                                <td style="padding: 4px; text-align: right;">
+                                    <span t-field="line.price_subtotal"/>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                    <div style="margin-top: 20px; text-align: right;">
+                        <strong>Total:</strong>
+                        <span t-field="doc.amount_total"/>
+                    </div>
+
+                </main>
+            </t>
+        </t>
+    </template>
+</odoo>

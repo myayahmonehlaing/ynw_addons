@@ -1,0 +1,15 @@
+<odoo>
+  <record id="view_prepayment_tree" model="ir.ui.view">
+    <field name="name">sale.prepayment.tree</field>
+    <field name="model">sale.prepayment</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="sale_order_id"/>
+        <field name="amount"/>
+        <field name="payment_date"/>
+        <field name="payment_method"/>
+        <field name="note"/>
+      </tree>
+    </field>
+  </record>
+</odoo>
