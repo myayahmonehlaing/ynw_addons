@@ -1,0 +1,21 @@
+<odoo>
+    <template id="report_saleorder_document_inherit_order_type" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@class='page']" position="inside">
+            <p><strong>Order Type:</strong> <t t-esc="doc.order_type_id.name"/></p>
+        </xpath>
+    </template>
+
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+    <xpath expr="//span[@name='payment_term']" position="after">
+        <p><strong>Order Type:</strong> <t t-esc="o.order_type_id.name"/></p>
+    </xpath>
+</template>
+
+
+<!--    <template id="report_invoice_document_inherit_order_type" inherit_id="account.report_invoice_document">-->
+<!--        <xpath expr="//div[@class='page']" position="inside">-->
+<!--            <p><strong>Order Type:</strong> <t t-esc="doc.order_type_id.name"/></p>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+</odoo>

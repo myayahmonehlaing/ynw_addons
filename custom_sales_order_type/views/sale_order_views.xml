@@ -1,0 +1,87 @@
+<odoo>
+    <record id="view_order_form_inherit_order_type" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.order.type</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="order_type_id"/>
+            </xpath>
+<!--            <xpath expr="//button[@id='create_invoice']" position="replace">-->
+<!--                <button name="action_create_invoice" type="object" string="Create Invoice" class="btn-primary"-->
+<!--                        invisible="invoice_status != 'invoice'"/>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//button[@name='action_cancel']" position="after">-->
+<!--                <button name="action_open_payment_form" type="object" string="Pay" class="oe_highlight"-->
+<!--                        invisible="state != 'sale'"/>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+
+    <record id="view_order_pivot_inherit_order_type" model="ir.ui.view">
+        <field name="name">sale.order.pivot.inherit.order.type</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sale_order_pivot"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="order_type_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_pivot2_inherit_order_type" model="ir.ui.view">
+        <field name="name">sale.order.pivot2.inherit.order.type</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sale_order_pivot"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="order_type_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_pivot3_inherit_order_type" model="ir.ui.view">
+        <field name="name">sale.report.pivot3.inherit.order.type</field>
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.view_order_product_pivot"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="order_type_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_form2_inherit_order_type" model="ir.ui.view">
+        <field name="name">sale.order.form2.inherit.order.type</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="order_type_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_form3_inherit_order_type" model="ir.ui.view">
+        <field name="name">sale.order.form3.inherit.order.type</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_list_upload"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="order_type_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_form4_inherit_order_type" model="ir.ui.view">
+        <field name="name">sale.report.form4.inherit.order.type</field>
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.sale_report_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="order_type_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
