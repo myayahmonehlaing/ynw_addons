@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Pivot View for Consignment Order Line -->
+    <record id="view_pivot_consignment_report" model="ir.ui.view">
+        <field name="name">consignment.order.line.pivot</field>
+        <field name="model">consignment.order.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Consignment Pivot">
+                <field name="product_id" type="row"/>
+                <field name="partner_id" type="col"/>
+                <field name="remaining_qty_at_filter_date" type="measure" sum="sum"/>
+            </pivot>
+        </field>
+    </record>
+
+
+    <!-- Action to Open the Pivot View -->
+    <record id="action_pivot_consignment_report" model="ir.actions.act_window">
+        <field name="name">Consignment Pivot</field>
+        <field name="res_model">consignment.order.line</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_pivot_consignment_report"/>
+        <field name="context">
+            {
+            "search_default_groupby_product_id": 1,
+            "search_default_groupby_partner_id": 1
+            }
+        </field>
+    </record>
+</odoo>

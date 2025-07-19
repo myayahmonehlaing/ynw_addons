@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="customer_template" name="Customer View">
+        <t t-call="website.layout">
+            <div class="container mt-4 mb-5">
+                <h2 class="text-center mb-4">Customer List</h2>
+
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%; background-color:#f9d5ec; color: #6a1b4d;">No</th>
+                            <th style="width: 10%; background-color:#d0f0fd; color: #004e7c;">Profile</th>
+                            <th style="width: 20%; background-color:#d3f8e2; color: #216d5b;">Name</th>
+                            <th style="width: 35%; background-color:#fce1e4; color: #a83252;">Email</th>
+                            <th style="width: 20%; background-color:#fbe4d8; color: #a35d35;">Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="index" t-value="0"/>
+                        <t t-foreach="customers" t-as="cust">
+                            <t t-set="index" t-value="index + 1"/>
+                            <tr>
+                                <td>
+                                    <t t-esc="index"/>
+                                </td>
+                                <td>
+                                    <t t-if="cust.get('image')">
+                                        <img t-att-src="cust['image']" class="rounded-circle"
+                                             style="width: 50px; height: 50px;"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="text-muted">No Image</span>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-esc="cust.get('name') or '-'"/>
+                                </td>
+                                <td>
+                                    <t t-esc="cust.get('email') or '-'"/>
+                                </td>
+                                <td>
+                                    <t t-esc="cust.get('phone') or '-'"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>
+

@@ -1,0 +1,125 @@
+<odoo>
+    <template id="report_saleorder_document_inherit_delivery_type" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@id='informations']/div[.//div[@t-field='doc.user_id']]" position="after">
+            <div t-if="doc.delivery_type_id" class="col">
+                <strong>Delivery Type</strong>
+                <div t-field="doc.delivery_type_id.name"/>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_saleorder_document_inherit_order_number_position" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t[@t-set='layout_document_title']" position="replace"/>
+
+        <xpath expr="//div[@t-field='doc.partner_id']" position="before">
+            <div style="font-size: 30px; font-weight: 600; color: #2F7B7D;">
+                <t t-if="is_proforma">Pro-Forma Invoice #</t>
+                <t t-elif="doc.state in ['draft','sent']">Quotation #</t>
+                <t t-else="">Order #</t>
+                <span t-field="doc.name"/>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+
+        <xpath expr="//td[@name='td_quantity']/span[@t-field='line.product_uom_qty']" position="replace">
+            <span t-esc="('%.2f' % line.product_uom_qty).rstrip('0').rstrip('.')"/>
+        </xpath>
+
+        <xpath expr="//td[@name='td_priceunit']/span[@t-field='line.price_unit']" position="replace">
+            <span>
+                <t t-if="doc.currency_id.name == 'MMK'">
+                    <t t-esc="('%.2f' % line.price_unit).rstrip('0').rstrip('.')"/>
+                    <t t-esc="doc.currency_id.symbol"/>
+                </t>
+                <t t-else="">vi
+                    <t t-esc="doc.currency_id.symbol"/>
+                    <t t-esc="('%.2f' % line.price_unit).rstrip('0').rstrip('.')"/>
+                </t>
+            </span>
+        </xpath>
+
+        <xpath expr="//td[@name='td_subtotal']/span[@t-field='line.price_subtotal']" position="replace">
+            <span>
+                <t t-if="doc.currency_id.name == 'MMK'">
+                    <t t-esc="('%.2f' % line.price_subtotal).rstrip('0').rstrip('.')"/>
+                    <t t-esc="doc.currency_id.symbol"/>
+                </t>
+                <t t-else="">
+                    <t t-esc="doc.currency_id.symbol"/>
+                    <t t-esc="('%.2f' % line.price_subtotal).rstrip('0').rstrip('.')"/>
+                </t>
+            </span>
+        </xpath>
+
+        <xpath expr="//td[@name='td_section_subtotal']/span[last()]" position="replace">
+            <span>
+                <t t-if="doc.currency_id.name == 'MMK'">
+                    <t t-esc="('%.2f' % current_subtotal).rstrip('0').rstrip('.')"/>
+                    <t t-esc="doc.currency_id.symbol"/>
+                </t>
+                <t t-else="">
+                    <t t-esc="doc.currency_id.symbol"/>
+                    <t t-esc="('%.2f' % current_subtotal).rstrip('0').rstrip('.')"/>
+                </t>
+            </span>
+        </xpath>
+
+        <xpath expr="//t[@t-call='sale.document_tax_totals']" position="replace">
+            <table class="o_total_table table table-borderless">
+                <tr>
+                    <td>Untaxed Amount:</td>
+                    <td class="text-end">
+                        <span>
+                            <t t-if="doc.currency_id.name == 'MMK'">
+                                <t t-esc="('%.2f' % doc.amount_untaxed).rstrip('0').rstrip('.')"/>
+                                <t t-esc="doc.currency_id.symbol"/>
+                            </t>
+                            <t t-else="">
+                                <t t-esc="doc.currency_id.symbol"/>
+                                <t t-esc="('%.2f' % doc.amount_untaxed).rstrip('0').rstrip('.')"/>
+                            </t>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tax 15%:</td>
+                    <td class="text-end">
+                        <span>
+                            <t t-if="doc.currency_id.name == 'MMK'">
+                                <t t-esc="('%.2f' % doc.amount_tax).rstrip('0').rstrip('.')"/>
+                                <t t-esc="doc.currency_id.symbol"/>
+                            </t>
+                            <t t-else="">
+                                <t t-esc="doc.currency_id.symbol"/>
+                                <t t-esc="('%.2f' % doc.amount_tax).rstrip('0').rstrip('.')"/>
+                            </t>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Total:</strong>
+                    </td>
+                    <td class="text-end">
+                        <strong>
+                            <span>
+                                <t t-if="doc.currency_id.name == 'MMK'">
+                                    <t t-esc="('%.2f' % doc.amount_total).rstrip('0').rstrip('.')"/>
+                                    <t t-esc="doc.currency_id.symbol"/>
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="doc.currency_id.symbol"/>
+                                    <t t-esc="('%.2f' % doc.amount_total).rstrip('0').rstrip('.')"/>
+                                </t>
+                            </span>
+                        </strong>
+                    </td>
+                </tr>
+            </table>
+        </xpath>
+
+    </template>
+
+</odoo>
