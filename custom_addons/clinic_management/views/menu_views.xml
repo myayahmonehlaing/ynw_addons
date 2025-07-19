@@ -1,0 +1,21 @@
+<odoo>
+    <menuitem id="menu_clinic_root" name="Clinic" sequence="10"/>
+
+    <!-- Main Functional Menus -->
+    <menuitem id="menu_clinic_patient" name="Patients" parent="menu_clinic_root" action="action_clinic_patient"/>
+    <menuitem id="menu_clinic_appointment" name="Appointments" parent="menu_clinic_root"
+              action="action_clinic_appointment"/>
+    <menuitem id="menu_clinic_prescription" name="Prescriptions" parent="menu_clinic_root"
+              action="action_clinic_prescription"/>
+    <menuitem id="menu_clinic_treatment" name="Treatments" parent="menu_clinic_root" action="action_clinic_treatment"/>
+
+    <!-- Configuration Submenu -->
+    <menuitem id="menu_clinic_config" name="Configuration" parent="menu_clinic_root" sequence="50"/>
+    <menuitem id="menu_clinic_department" name="Departments" parent="menu_clinic_config"
+              action="action_clinic_department"/>
+    <menuitem id="menu_clinic_room" name="Rooms" parent="menu_clinic_config" action="action_clinic_room"/>
+
+    <!-- Optional: Inherit Invoice Menu -->
+    <menuitem id="menu_clinic_invoice" name="Invoices" parent="menu_clinic_root"
+              action="account.action_move_out_invoice_type"/>
+</odoo>
