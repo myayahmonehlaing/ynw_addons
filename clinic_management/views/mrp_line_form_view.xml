@@ -1,0 +1,12 @@
+<odoo>
+    <record id="view_mrp_bom_form_inherit_usage_note" model="ir.ui.view">
+        <field name="name">mrp.bom.form.inherit.usage.note</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='bom_line_ids']/list/field[@name='product_uom_id']" position="after">
+                <field name="usage_note"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

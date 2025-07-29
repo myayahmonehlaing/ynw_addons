@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Paper format -->
+        <record id="paper_format_treatment" model="report.paperformat">
+            <field name="name">Treatment A4</field>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+        </record>
+
+        <!-- Report Action -->
+        <record id="action_report_treatment" model="ir.actions.report">
+            <field name="name">Print</field>
+            <field name="model">clinic.treatment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">clinic_management.report_treatment_template</field>
+            <field name="print_report_name">'Treatment - %s' % (object.name)</field>
+            <field name="paperformat_id" ref="clinic_management.paper_format_treatment"/>
+        </record>
+    </data>
+</odoo>

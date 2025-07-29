@@ -1,0 +1,194 @@
+<odoo>
+    <!--    list view-->
+    <record id="view_clinic_patient_list" model="ir.ui.view">
+        <field name="name">clinic.patient.list</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="gender"/>
+                <field name="dob"/>
+                <field name="age"/>
+                <field name="phone"/>
+                <field name="email"/>
+            </list>
+        </field>
+    </record>
+    <!--kanban view-->
+    <record id="view_clinic_patient_kanban" model="ir.ui.view">
+        <field name="name">clinic.patient.kanban</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="image"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="address"/>
+                <field name="gender"/>
+                <field name="dob"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_card card p-2">
+                            <div class="d-flex">
+                                <!-- Image on left -->
+                                <div style="flex: 0 0 100px;">
+                                    <img t-att-src="kanban_image('clinic.patient', 'image', record.id.value)"
+                                         style="width: 100px; height: 100px; object-fit: cover;"
+                                         alt="Patient Photo"/>
+                                </div>
+
+                                <!-- Info on right -->
+                                <div class="ms-3" style="flex: 1;">
+                                    <strong class="d-block" style="font-size: 16px;">
+                                        <field name="name"/>
+                                    </strong>
+
+                                    <div class="text-muted small mt-1">
+                                        <t t-if="record.gender.value">
+                                            <i class="fa fa-user me-1"/>
+                                            <field name="gender"/>
+                                        </t>
+                                        <br/>
+                                        <t t-if="record.age.value">
+                                            <i class="fa fa-hourglass-half me-1"/>
+                                            <field name="age"/>
+                                            <span>years</span>
+                                        </t>
+
+                                        <br/>
+                                        <t t-if="record.phone.value">
+                                            <i class="fa fa-phone me-1"/>
+                                            <field name="phone"/>
+                                        </t>
+                                        <br/>
+                                        <t t-if="record.address.value">
+                                            <i class="fa fa-map-marker me-1"/>
+                                            <field name="address"/>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!--    search view-->
+    <record id="view_clinic_patient_search" model="ir.ui.view">
+        <field name="name">clinic.patient.search</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="gender"/>
+                <field name="blood_type"/>
+                <field name="skin_type"/>
+
+                <filter string="Male" name="filter_male" domain="[('gender', '=', 'male')]"/>
+                <filter string="Female" name="filter_female" domain="[('gender', '=', 'female')]"/>
+                <filter string="Sensitive Skin" name="filter_sensitive_skin"
+                        domain="[('skin_type', '=', 'sensitive')]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Gender" name="group_gender" domain="[]" context="{'group_by': 'gender'}"/>
+                    <filter string="Blood Type" name="group_blood" domain="[]" context="{'group_by': 'blood_type'}"/>
+                    <filter string="Skin Type" name="group_skin" domain="[]" context="{'group_by': 'skin_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--    form view-->
+    <record id="view_clinic_patient_form" model="ir.ui.view">
+        <field name="name">clinic.patient.form</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_appointment"
+                            type="object"
+                            string="New Appointment"
+                            class="btn-primary"
+                            icon="fa-plus"
+                            groups="clinic_management.group_clinic_manager,clinic_management.group_clinic_receptionist"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_appointments"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-calendar"
+                                invisible="appointment_count == 0">
+                            <field name="appointment_count" widget="statinfo" string="Appointments"/>
+                        </button>
+                        <button name="action_view_treatments"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-stethoscope"
+                                invisible="treatment_count == 0">
+                            <field name="treatment_count" widget="statinfo" string="Treatments"/>
+                        </button>
+                    </div>
+
+                    <!-- Row: Image & Name -->
+                    <div class="o_row">
+                        <!-- Name and ID Column -->
+                        <div class="o_col">
+                            <div class="oe_title">
+                                <h1>
+                                    <field name="name" placeholder="Patient Name"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <!-- Avatar Column -->
+                        <div class="o_col_auto">
+                            <field name="image" widget="image" class="oe_avatar" options="{'size': [128, 128]}"/>
+                        </div>
+
+                    </div>
+
+                    <!-- 2-Column Main Info Layout -->
+                    <div class="o_row">
+                        <!-- Left Column -->
+                        <div class="o_col">
+                            <group string="Personal Information">
+                                <field name="gender"/>
+                                <field name="dob"/>
+                                <field name="age" readonly="1"/>
+                                <field name="blood_type"/>
+                            </group>
+                            <group string="Medical Details">
+                                <field name="skin_type"/>
+                                <field name="allergies"/>
+                            </group>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="o_col">
+                            <group string="Contact Information">
+                                <field name="phone"/>
+                                <field name="email"/>
+                                <field name="address"/>
+                            </group>
+                        </div>
+                    </div>
+
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_clinic_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">clinic.patient</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_clinic_patient_search"/>
+    </record>
+</odoo>

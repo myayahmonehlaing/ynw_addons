@@ -1,0 +1,188 @@
+<odoo>
+    <record id="view_clinic_appointment_calendar" model="ir.ui.view">
+        <field name="name">clinic.appointment.calendar</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointments"
+                      date_start="date_start"
+                      date_stop="date_end"
+                      color="doctor_id"
+                      create="true"
+                      quick_create="false">
+                <field name="name"/>
+                <field name="doctor_id"/>
+                <field name="patient_id"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+
+    <record id="view_clinic_appointment_list" model="ir.ui.view">
+        <field name="name">clinic.appointment.list</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="room_id"/>
+                <field name="state" widget="badge"
+                       decoration-muted="state == 'draft'"
+                       decoration-primary="state == 'confirmed'"
+                       decoration-info="state == 'consulted'"
+                       decoration-success="state == 'done'"
+                       decoration-danger="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <!--    <record id="view_clinic_appointment_search" model="ir.ui.view">-->
+    <!--        <field name="name">clinic.appointment.search</field>-->
+    <!--        <field name="model">clinic.appointment</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <search>-->
+    <!--                &lt;!&ndash; Existing fields &ndash;&gt;-->
+    <!--                <field name="state"/>-->
+    <!--                <field name="date_start"/>-->
+    <!--                <field name="date_end"/>-->
+
+    <!--                &lt;!&ndash; ✅ Add patient and doctor fields for filtering &ndash;&gt;-->
+    <!--                <field name="patient_id"/>-->
+    <!--                <field name="doctor_id"/>-->
+
+    <!--                &lt;!&ndash;                <filter string="Draft" name="filter_draft" domain="[('state', '=', 'draft')]"/>&ndash;&gt;-->
+    <!--                <filter string="Confirmed" name="filter_confirmed" domain="[('state', '=', 'confirmed')]"/>-->
+    <!--                <filter string="Done" name="filter_done" domain="[('state', '=', 'done')]"/>-->
+    <!--                <filter string="Consulted" name="filter_consulted" domain="[('state', '=', 'consulted')]"/>-->
+    <!--                &lt;!&ndash;                <filter string="Cancelled" name="filter_cancelled" domain="[('state', '=', 'cancelled')]"/>&ndash;&gt;-->
+
+    <!--                <group expand="0" string="Group By">-->
+    <!--                    <filter string="Doctor" name="group_doctor" context="{'group_by': 'doctor_id'}"/>-->
+    <!--                    <filter string="Patient" name="group_patient" context="{'group_by': 'patient_id'}"/>-->
+    <!--                    <filter string="State" name="group_state" context="{'group_by': 'state'}"/>-->
+    <!--                </group>-->
+    <!--            </search>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="view_clinic_appointment_search" model="ir.ui.view">
+        <field name="name">clinic.appointment.search</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- 🔍 Searchable Fields -->
+                <field name="name"/>
+                <field name="doctor_id"/>
+                <field name="patient_id"/>
+                <field name="state"/>
+
+                <separator/>
+
+                <!-- ✅ State Filters -->
+                <filter string="Confirmed" name="filter_confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter string="Consulted" name="filter_consulted" domain="[('state', '=', 'consulted')]"/>
+                <filter string="Done" name="filter_done" domain="[('state', '=', 'done')]"/>
+
+                <separator/>
+
+                <!-- 📊 Group By -->
+                <group expand="0" string="Group By">
+                    <filter string="Doctor" name="group_doctor" context="{'group_by': 'doctor_id'}"/>
+                    <filter string="Patient" name="group_patient" context="{'group_by': 'patient_id'}"/>
+                    <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="view_clinic_appointment_form" model="ir.ui.view">
+        <field name="name">clinic.appointment.form</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment" class="o_form_padded">
+                <header>
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,confirmed,consulted,done,cancelled"
+                           statusbar_colors="{
+                               'draft': 'muted',
+                               'confirmed': 'primary',
+                               'consulted': 'info',
+                               'done': 'success',
+                               'cancelled': 'danger'
+                           }"/>
+
+                    <button name="action_confirm" type="object" string="Confirm" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_consult" type="object" string="Consult" class="btn-primary"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_create_treatment"
+                            string="Create Treatment"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state != 'consulted'"
+                            groups="clinic_management.group_clinic_manager,clinic_management.group_clinic_doctor"/>
+                    <!--                    <button name="action_send_email"-->
+                    type="object"
+                    string="Send by Email"
+                    class="btn-primary"
+                    invisible="state!='confirmed'"/>
+
+
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-secondary"
+                            invisible="state not in ['draft', 'confirmed','consulted']"/>
+                    <button name="action_draft" type="object" string="Reset to Draft" class="btn-secondary"
+                            invisible="state != 'cancelled'"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h2>
+                            <field name="name" readonly="1" class="oe_inline"/>
+                        </h2>
+                    </div>
+
+                    <group string="Patient and Doctor Details" colspan="2">
+                        <group>
+                            <field name="patient_id" readonly="state != 'draft'"/>
+                            <field name="concern_type" readonly="state != 'draft'"/>
+                            <field name="doctor_id" options="{'no_create': True}" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="date_start" readonly="state != 'draft'"/>
+                            <field name="date_end" readonly="state != 'draft'"/>
+                            <!-- Room stays editable -->
+                            <field name="room_id" readonly="state not in ['draft', 'confirmed']"
+                                   domain="[('is_occupied', '=', False)]" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+
+
+                    <group string="Appointment Info" colspan="2">
+                        <field name="reason" readonly="state != 'draft'"
+                               placeholder="Describe the reason for the visit..."/>
+                    </group>
+
+                    <group string="Other Info" invisible="1">
+                        <field name="company_id" readonly="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_clinic_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">calendar,list,form</field>
+        <field name="search_view_id" ref="view_clinic_appointment_search"/>
+    </record>
+
+
+</odoo>

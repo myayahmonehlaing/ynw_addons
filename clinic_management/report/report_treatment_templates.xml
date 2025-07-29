@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_treatment_template">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="o">
+                <main class="page">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3>Treatment</h3>
+                            <p>
+                                <strong>Reference:</strong>
+                                <span t-field="o.name"/>
+                            </p>
+                            <p>
+                                <strong>Patient:</strong>
+                                <span t-field="o.patient_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Doctor:</strong>
+                                <span t-field="o.doctor_id.name"/>
+                            </p>
+
+
+                        </div>
+                        <div class="col-6 text-end">
+                            <p>
+                                <strong>Start:</strong>
+                                <span t-field="o.date_start"/>
+                            </p>
+                            <p>
+                                <strong>End:</strong>
+                                <span t-field="o.date_end"/>
+                            </p>
+                        </div>
+                    </div>
+
+
+<!--                    <h4 class="mt-4">Treatment Lines</h4>-->
+                    <table class="table table-sm" style="width: 100%; border-collapse: collapse; margin-top: 20px;" border="1">
+                        <thead>
+                            <tr>
+                                <th style="padding: 5px;">Product</th>
+                                <th style="padding: 5px;">Usage Note</th>
+                                <th style="padding: 5px; text-align:right;">Qty</th>
+                                <th style="padding: 5px; text-align:right;">Unit Price</th>
+                                <th style="padding: 5px; text-align:right;">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.line_ids" t-as="line">
+                                <td style="padding: 5px;">
+                                    <span t-field="line.product_id.display_name"/>
+                                </td>
+                                <td style="padding: 5px;">
+                                    <span t-field="line.usage_note"/>
+                                </td>
+                                <td style="padding: 5px; text-align:right;">
+                                    <span t-field="line.quantity"/>
+                                </td>
+                                <td style="padding: 5px; text-align:right;">
+                                    <span t-field="line.price"
+                                          t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                </td>
+                                <td style="padding: 5px; text-align:right;">
+                                    <span t-field="line.subtotal"
+                                          t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="width: 40%; float: right; margin-top: 10px; border-collapse: collapse;" border="1">
+                        <tbody>
+                            <tr>
+                                <td style="padding: 6px; font-weight: bold; background: #1C7D7E; color: #fff;">Total</td>
+                                <td style="padding: 6px; text-align:right; background: #1C7D7E; color: #fff;">
+                                    <span t-field="o.amount_total"
+                                          t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </main>
+            </t>
+        </t>
+    </template>
+</odoo>

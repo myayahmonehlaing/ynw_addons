@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Register all custom models to be used in ir.model.access.csv -->
+    <record id="model_clinic_patient" model="ir.model">
+        <field name="name">clinic.patient</field>
+        <field name="model">clinic.patient</field>
+        <field name="state">base</field>
+    </record>
+
+    <record id="model_clinic_appointment" model="ir.model">
+        <field name="name">clinic.appointment</field>
+        <field name="model">clinic.appointment</field>
+        <field name="state">base</field>
+    </record>
+
+    <record id="model_clinic_room" model="ir.model">
+        <field name="name">clinic.room</field>
+        <field name="model">clinic.room</field>
+        <field name="state">base</field>
+    </record>
+
+    <record id="model_clinic_treatment" model="ir.model">
+        <field name="name">clinic.treatment</field>
+        <field name="model">clinic.treatment</field>
+        <field name="state">base</field>
+    </record>
+
+    <record id="model_clinic_treatment_line" model="ir.model">
+        <field name="name">clinic.treatment.line</field>
+        <field name="model">clinic.treatment.line</field>
+        <field name="state">base</field>
+    </record>
+</odoo>

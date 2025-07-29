@@ -1,0 +1,45 @@
+<odoo>
+    <record id="view_clinic_appointment_search" model="ir.ui.view">
+        <field name="name">clinic.appointment.search</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- You can add normal search fields here too -->
+                <field name="state"/>
+
+                <!-- Group by Filters -->
+                <filter string="Doctor" name="group_by_doctor_id" context="{'group_by':'doctor_id'}"/>
+                <filter string="Patient" name="group_by_patient_id" context="{'group_by':'patient_id'}"/>
+                <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_clinic_treatment_search" model="ir.ui.view">
+        <field name="name">clinic.treatment.search</field>
+        <field name="model">clinic.treatment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="state"/>
+                <filter string="Doctor" name="group_by_doctor_id" context="{'group_by': 'doctor_id'}"/>
+                <filter string="Patient" name="group_by_patient_id" context="{'group_by': 'patient_id'}"/>
+                <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_clinic_treatment_line_search" model="ir.ui.view">
+        <field name="name">clinic.treatment.line.search</field>
+        <field name="model">clinic.treatment.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id" string="Product"/>
+                <field name="treatment_id" string="Treatment"/>
+                <filter name="group_by_product_id" string="Group by Product" context="{'group_by': 'product_id'}"/>
+                <filter string="Category" name="group_by_category_id" context="{'group_by': 'category_id'}"/>
+            </search>
+        </field>
+    </record>
+
+
+</odoo>

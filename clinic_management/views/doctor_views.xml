@@ -1,0 +1,30 @@
+<odoo>
+    <record id="view_employee_form_inherit_clinic" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.clinic</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="is_doctor_position" invisible="1"/>
+                <field name="doctor_type" invisible="is_doctor_position!=True"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_clinic_doctor_type_form" model="ir.ui.view">
+        <field name="name">clinic.doctor.type.form</field>
+        <field name="model">clinic.doctor.type</field>
+        <field name="arch" type="xml">
+            <form string="Doctor Type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group string="Treatments Best Handled">
+                        <field name="treatment_product_ids" widget="many2many_checkboxes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
